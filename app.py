@@ -12,7 +12,7 @@ from sklearn.decomposition import PCA
 # This section handles all the data preparation, including loading, cleaning,
 # and scaling, just as you did in your initial analysis.
 
-creditcard_df = pd.read_csv("CC GENERAL.csv") # Assuming the file is in the same directory
+creditcard_df = pd.read_csv("dataset/CC_GENERAL.csv") # Assuming the file is in the same directory
 
 # Fill missing values with the mean
 creditcard_df.loc[(creditcard_df['MINIMUM_PAYMENTS'].isnull() == True), 'MINIMUM_PAYMENTS'] = creditcard_df['MINIMUM_PAYMENTS'].mean()
@@ -169,7 +169,7 @@ act_tab_content = html.Div([
 
 
 app.layout = dbc.Container([
-    dbc.Row(dbc.Col(html.H1("💳 Bank Customer Segmentation Dashboard", className="text-center my-4"))),
+    dbc.Row(dbc.Col(html.H1("💳 Bank Customer Segmentation", className="text-center my-4"))),
     
     dbc.Tabs([
         dbc.Tab(ask_tab_content, label="Ask"),
