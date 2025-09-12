@@ -87,7 +87,7 @@ This project is designed to help a bank's marketing team move beyond a one-size-
 )
 
 prepare_tab_content = html.Div([
-    html.H4("📝 **PREPARE** — Getting the Data Ready", className="p-2"),
+    dcc.Markdown("### 📝 **PREPARE** — Getting the Data Ready", className="p-2"),
     html.P("This section covers the data we used and the key steps taken to prepare it for analysis."),
     
     html.H5("Data Source"),
@@ -106,7 +106,7 @@ prepare_tab_content = html.Div([
 ], className="p-4")
 
 analyze_tab_content = html.Div([
-    html.H4("📈 **ANALYZE** — Finding Patterns and Creating Segments", className="p-2"),
+    dcc.Markdown("### 📈 **ANALYZE** — Finding Patterns and Creating Segments", className="p-2"),
     html.P("This is where we apply the K-Means algorithm to find natural customer groups. We then use Principal Component Analysis (PCA) to visualize these groups in a simpler way."),
     
     html.Hr(),
@@ -176,7 +176,7 @@ analyze_tab_content = html.Div([
 
 # Update act_tab_content to be a pure summary of recommendations
 act_tab_content = html.Div([
-    html.H4("🚀 **ACT** — Turning Insights into Actionable Strategies", className="p-2"),
+    dcc.Markdown("### 🚀 **ACT** — Turning Insights into Actionable Strategies", className="p-2"),
     html.P(dcc.Markdown("Based on our detailed analysis, we have identified and profiled 7 distinct customer segments. The marketing team can use the following high-level recommendations to design targeted campaigns that are far more effective than a generic, one-size-fits-all approach. This is the ultimate goal of the entire project.")),
     
     html.Hr(),
