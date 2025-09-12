@@ -151,7 +151,7 @@ analyze_tab_content = html.Div([
     ),
     
     html.Hr(),
-    html.H5("Step 3: Cluster Profiling"),
+    html.H5("Step 3: Cluster Profiling and Descriptions"),
     html.P("To understand the unique characteristics of each cluster, we can compare the average values of the original features. Use the dropdown below to explore how each cluster's behavior differs."),
     html.P(dcc.Markdown("This comparison helps us give a 'personality' to each cluster. For example, by selecting 'BALANCE', you can see which cluster tends to carry the highest average balance. This is different from a simple total because it tells you about the *behavior of the typical customer* in that group. The same applies to other features like `ONEOFF_PURCHASES` (single, large purchases) versus `INSTALLMENTS_PURCHASES` (many small, planned purchases). Separating these metrics gives us a much clearer picture of what a customer values.")),
     dbc.Row([
@@ -172,6 +172,19 @@ analyze_tab_content = html.Div([
             ), md=8
         )
     ], className="g-3"),
+    
+    # html.Hr(),
+    html.H5("Detailed Cluster Descriptions:"),
+    
+    html.Ul([
+        html.Li(dcc.Markdown("**Cluster 0: The High-Value Spenders** - These customers have a high credit limit, make frequent and large one-off purchases, and pay off their balances quickly. They represent the most profitable and engaged segment.")),
+        html.Li(dcc.Markdown("**Cluster 1: The 'Revolvers' (Credit-as-a-Loan Users)** - This group carries the highest balances and cash advances. They use their credit card more as a source of short-term loans and are a high-risk group due to potential debt.")),
+        html.Li(dcc.Markdown("**Cluster 2: The New Customers** - This cluster is defined by the lowest tenure, meaning they are new to the bank. They have low activity across all metrics, representing a crucial opportunity for loyalty-building efforts.")),
+        html.Li(dcc.Markdown("**Cluster 3: The Installment Shoppers** - These customers make a high number of purchases and pay frequently, often in installments. They are careful with large one-off purchases and prefer to budget their spending.")),
+        html.Li(dcc.Markdown("**Cluster 4: The Cash-Advance Users** - This segment is characterized by a high frequency of cash advance transactions, but relatively low purchase activity. They likely use their credit card for short-term liquidity, which is a high-cost habit.")),
+        html.Li(dcc.Markdown("**Cluster 5: The Infrequent Users** - This group has a low balance and low activity across all transaction metrics. They may have a card but rarely use it, representing a low-cost, low-profit segment.")),
+        html.Li(dcc.Markdown("**Cluster 6: The Budget-Minded Spenders** - This group makes a high number of purchases but with a low average transaction amount. They are disciplined with their payments and are not looking for large credit lines.")),
+    ], className="mt-3")
 ], className="p-4")
 
 # Update act_tab_content to be a pure summary of recommendations
@@ -182,13 +195,13 @@ act_tab_content = html.Div([
     html.Hr(),
     html.H5("Marketing Recommendations by Segment:"),
     html.Ul([
-        html.Li(dcc.Markdown("**Cluster 0: The High-Value Spenders** - These customers have a high credit limit, make frequent and large one-off purchases, and pay off their balances quickly. They represent the most profitable and engaged segment. *Action: Offer exclusive rewards programs for high-value purchases or increase their credit limit to encourage further spending.*")),
-        html.Li(dcc.Markdown("**Cluster 1: The 'Revolvers' (Credit-as-a-Loan Users)** - This group carries the highest balances and cash advances. They use their credit card more as a source of short-term loans and are a high-risk group due to potential debt. *Action: Promote balance transfer offers with lower interest rates or offer financial management tools to help them reduce debt and improve their financial health.*")),
-        html.Li(dcc.Markdown("**Cluster 2: The New Customers** - This cluster is defined by the lowest tenure, meaning they are new to the bank. They have low activity across all metrics, representing a crucial opportunity for loyalty-building efforts. *Action: Focus on onboarding programs, educational content about credit card benefits, and special offers to encourage initial engagement and loyalty.*")),
-        html.Li(dcc.Markdown("**Cluster 3: The Installment Shoppers** - These customers make a high number of purchases and pay frequently, often in installments. They are careful with large one-off purchases and prefer to budget their spending. *Action: Partner with popular retailers to offer special installment plans and discounts to drive more frequent installment usage.*")),
-        html.Li(dcc.Markdown("**Cluster 4: The Cash-Advance Users** - This segment is characterized by a high frequency of cash advance transactions, but relatively low purchase activity. They likely use their credit card for short-term liquidity, which is a high-cost habit. *Action: Promote balance transfer options and financial wellness tools to help them manage their high-interest debt effectively.*")),
-        html.Li(dcc.Markdown("**Cluster 5: The Infrequent Users** - This group has a low balance and low activity across all transaction metrics. They may have a card but rarely use it, representing a low-cost, low-profit segment. *Action: Drive engagement with incentives for small, frequent purchases (e.g., a bonus for using the card 3 times in a month). Remind them of the card's rewards and benefits.*")),
-        html.Li(dcc.Markdown("**Cluster 6: The Budget-Minded Spenders** - This group makes a high number of purchases but with a low average transaction amount. They are disciplined with their payments and are not looking for large credit lines. *Action: Offer rewards for small, everyday transactions and highlight the convenience of using the card for daily purchases.*")),
+        html.Li(dcc.Markdown("**Cluster 0 (High-Value Spenders):** *Action: Offer exclusive rewards programs for high-value purchases or increase their credit limit to encourage further spending.*")),
+        html.Li(dcc.Markdown("**Cluster 1 ('Revolvers' (Credit-as-a-Loan Users)):** *Action: Promote balance transfer offers with lower interest rates or offer financial management tools to help them reduce debt and improve their financial health.*")),
+        html.Li(dcc.Markdown("**Cluster 2 (New Customers):** *Action: Focus on onboarding programs, educational content about credit card benefits, and special offers to encourage initial engagement and loyalty.*")),
+        html.Li(dcc.Markdown("**Cluster 3 (Installment Shoppers):** *Action: Partner with popular retailers to offer special installment plans and discounts to drive more frequent installment usage.*")),
+        html.Li(dcc.Markdown("**Cluster 4 (Cash-Advance Users):** *Action: Promote balance transfer options and financial wellness tools to help them manage their high-interest debt effectively.*")),
+        html.Li(dcc.Markdown("**Cluster 5 (Infrequent Users):** *Action: Drive engagement with incentives for small, frequent purchases (e.g., a bonus for using the card 3 times in a month). Remind them of the card's rewards and benefits.*")),
+        html.Li(dcc.Markdown("**Cluster 6 (Budget-Minded Spenders):** *Action: Offer rewards for small, everyday transactions and highlight the convenience of using the card for daily purchases.*")),
     ], className="mt-3")
 ], className="p-4")
 
