@@ -93,7 +93,8 @@ summary_df.rename(columns={'index': 'Statistical Measure'}, inplace=True)
 
 # Define columns for the summary table. The first column is text, the rest are numeric.
 summary_columns = [
-    {"name": "Statistical Measure", "id": "Statistical Measure", "type": "text"}
+    # Fixed the filter_options value from 'no' to 'insensitive'
+    {"name": "Statistical Measure", "id": "Statistical Measure", "type": "text", "filter_options": {'case': 'insensitive'}}
 ] + [
     {"name": i, "id": i, "type": "numeric"} for i in summary_df.columns[1:]
 ]
