@@ -7,6 +7,7 @@ import dash_bootstrap_components as dbc
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
+import dash_table # Import dash_table for displaying data
 
 # --- 1. Data Loading and Preprocessing ---
 # This section handles all the data preparation, including loading, cleaning,
@@ -100,10 +101,38 @@ prepare_tab_content = html.Div([
         html.Li(dcc.Markdown("**Removing Irrelevant Features:** The 'CUST_ID' column was removed because it's a unique identifier for each customer and doesn't provide any behavioral information that would be useful for grouping them.")),
         html.Li(dcc.Markdown("**Data Scaling:** Clustering algorithms like K-Means are very sensitive to the scale of the data. For example, a feature like 'PURCHASES' might have values in the thousands, while 'TENURE' (the number of months a card has been active) is much smaller. To prevent features with larger values from unfairly dominating the results, we used a **StandardScaler** to normalize all features so they contribute equally to the distance calculations.")),
     ]),
+    
     html.H5("Data Summary"),
     html.P("Here's a quick look at the statistical summary of the prepared data."),
     dbc.Table.from_dataframe(creditcard_df.describe().round(2).T, striped=True, bordered=True, hover=True),
+
+    html.H5("Dataset Sample (First 10 Rows)"),
+    dash_table.DataTable(
+        id='table',
+        columns=[{"name": i, "id": i} for i in creditcard_df.columns],
+        data=creditcard_df.head(10).to_dict('records'),
+        sort_action="native",  # Enable sorting
+        filter_action="native", # Enable filtering
+        page_action="native", # Corrected from "none" to "native"
+        page_size=10, # Added to ensure 10 rows are displayed per page
+        style_table={'overflowX': 'auto', 'width': '100%'},
+        style_header={
+            'backgroundColor': 'rgb(230, 230, 230)',
+            'fontWeight': 'bold',
+            'textAlign': 'center',
+        },
+        style_cell={
+            'textAlign': 'left',
+            'padding': '5px',
+            'font-size': '12px',
+            'minWidth': '80px', 'width': 'auto', 'maxWidth': '150px',
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+        },
+    ),
+    html.Br(),
 ], className="p-4")
+
 
 analyze_tab_content = html.Div([
     dcc.Markdown("### 📈 **ANALYZE** — Finding Patterns and Creating Segments", className="p-2"),
