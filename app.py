@@ -87,6 +87,17 @@ This project is designed to help a bank's marketing team move beyond a one-size-
     className="p-4"
 )
 
+# Create the summary dataframe and format it for DataTable
+summary_df = creditcard_df.describe().round(2).T.reset_index()
+summary_df.rename(columns={'index': 'Statistical Measure'}, inplace=True)
+
+# Define columns for the summary table. The first column is text, the rest are numeric.
+summary_columns = [
+    {"name": "Statistical Measure", "id": "Statistical Measure", "type": "text"}
+] + [
+    {"name": i, "id": i, "type": "numeric"} for i in summary_df.columns[1:]
+]
+
 prepare_tab_content = html.Div([
     dcc.Markdown("### 📝 **PREPARE** — Getting the Data Ready", className="p-2"),
     html.P("This section covers the data we used and the key steps taken to prepare it for analysis."),
@@ -104,17 +115,39 @@ prepare_tab_content = html.Div([
     
     html.H5("Data Summary"),
     html.P("Here's a quick look at the statistical summary of the prepared data."),
-    dbc.Table.from_dataframe(creditcard_df.describe().round(2).T, striped=True, bordered=True, hover=True),
-
+    dash_table.DataTable(
+        id='summary-table',
+        columns=summary_columns,
+        data=summary_df.to_dict('records'),
+        sort_action="native",
+        filter_action="native",
+        page_action="none",
+        style_table={'overflowX': 'auto', 'width': '100%', 'border': '1px solid #dee2e6'},
+        style_header={
+            'backgroundColor': 'rgb(230, 230, 230)',
+            'fontWeight': 'bold',
+            'textAlign': 'center',
+            'border-bottom': '1px solid #dee2e6',
+        },
+        style_cell={
+            'textAlign': 'left',
+            'padding': '8px',
+            'font-size': '12px',
+            'minWidth': '80px', 'width': 'auto', 'maxWidth': '150px',
+            'overflow': 'hidden',
+            'textOverflow': 'ellipsis',
+            'border-right': '1px solid #dee2e6',
+        },
+    ),
+    html.Br(),
     html.H5("Dataset Sample (First 10 Rows)"),
     dash_table.DataTable(
         id='table',
-        columns=[{"name": i, "id": i} for i in creditcard_df.columns],
+        columns=[{"name": i, "id": i, "type": "numeric"} for i in creditcard_df.columns],
         data=creditcard_df.head(10).to_dict('records'),
-        sort_action="native",  # Enable sorting
-        filter_action="native", # Enable filtering
-        page_action="native", # Corrected from "none" to "native"
-        page_size=10, # Added to ensure 10 rows are displayed per page
+        sort_action="native",
+        filter_action="native",
+        page_action="none",
         style_table={'overflowX': 'auto', 'width': '100%'},
         style_header={
             'backgroundColor': 'rgb(230, 230, 230)',
